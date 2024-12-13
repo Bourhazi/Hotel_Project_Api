@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.demo.grpc";
+
+
+message GetReservationByIdRequest {
+  int64 id = 1;
+}
+
+message GetReservationByIdResponse {
+  Reservation reservation = 1;
+}
+
+message GetReservationsRequest {}
+
+message GetReservationsResponse {
+  repeated Reservation reservations = 1;
+}
+
+message CreateReservationRequest {
+  string clientName = 1;
+  string roomType = 2;
+  string startDate = 3;
+  string endDate = 4;
+}
+
+message CreateReservationResponse {
+  Reservation reservation = 1;
+}
+
+message DeleteReservationRequest {
+  int64 id = 1;
+}
+
+message DeleteReservationResponse {
+  bool success = 1;
+}
+
+message Reservation {
+  int64 id = 1;
+  string clientName = 2;
+  string roomType = 3;
+  string startDate = 4;
+  string endDate = 5;
+}
+
+service ReservationService {
+  rpc GetReservationById(GetReservationByIdRequest) returns (GetReservationByIdResponse);
+  rpc GetReservations(GetReservationsRequest) returns (GetReservationsResponse);
+  rpc CreateReservation(CreateReservationRequest) returns (CreateReservationResponse);
+  rpc DeleteReservation(DeleteReservationRequest) returns (DeleteReservationResponse);
+}
